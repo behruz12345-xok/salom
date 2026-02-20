@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Xavfsiz Aloqa Formasi</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background: #f4f4f4; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; }
+        input { width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; }
+        button { width: 100%; padding: 10px; background: #0088cc; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>Biz bilan bog'laning</h3>
+        <input type="text" id="name" placeholder="Ismingiz">
+        <input type="text" id="message" placeholder="Xabaringiz">
+        <button onclick="sendToTelegram()">Yuborish</button>
+    </div>
+    <script>
+        async function sendToTelegram() {
+            const token = "8120272722:AAFjb1pSggoErSO36-Wk5ohC7wwod2qPJhc";
+            const chatId = "7995898636";
+            
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            const fullText = `Yangi xabar:\nIsm: ${name}\nXabar: ${message}`;
+
+            // Telegram API ga so'rov yuborish
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(fullText)}`;
+
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    alert("Xabar botga yuborildi!");
+                } else {
+                    alert("Xatolik yuz berdi.");
+                }
+            } catch (error) {
+                console.error("Xato:", error);
+            }
+        }
+    </script>
+</body>
+</html>
